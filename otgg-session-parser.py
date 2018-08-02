@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 # Imports
 
 # For Gmail
@@ -10,6 +8,9 @@ from oauth2client import file, client, tools
 from email.mime.text import MIMEText
 import base64
 from googleapiclient import errors
+
+# For debugging
+import sys
 
 # For CSV reader
 import csv
@@ -28,6 +29,7 @@ service = build('gmail', 'v1', http=creds.authorize(Http()))
 # Read in template email body
 
 email_template_handle = open("email_template.txt", "r")
+email_template = email_template_handle.read()
 
 # Read in session docs CSV
 
@@ -68,14 +70,18 @@ for session_row in session_docs_list:
       email_to_list.append(session_attendee[3])
 
   # Map info into email template
-
-STUFF TO DO HERE OBVS
+  message_body = email_template
+  message_body = message_body.replace("<location>", location)
+  message_body = message_body.replace("<session>", session.lower())
+  message_body = message_body.replace("<session-notes-doc>", doc)
 
   # Use list of email addresses to send to everyone
   message = MIMEText(message_body)
-  subject = "One Team Gov Global follow-up : " + location + " " + session
+  subject = "One Team Gov Global follow-up : " + location + " " + session.lower()
   message['subject'] = subject
 
+  # Set up to and from
+  message['from'] = "dave@bowsy.co.uk"
   to_list = ""
   for email_address in email_to_list:
     to_list = to_list + email_address + ","
@@ -84,7 +90,7 @@ STUFF TO DO HERE OBVS
   # Skip if no-one is recorded as going
   if (to_list == ""):
     continue
-  else
+  else:
     message['to'] = to_list
 
   # Send it off
@@ -94,6 +100,3 @@ STUFF TO DO HERE OBVS
     print('Message Id: %s' % ret_val['id'])
   except errors.HttpError, error:
     print('An error occurred: %s' % error)
-
-
-
