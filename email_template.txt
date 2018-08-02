@@ -1,0 +1,15 @@
+Dear <first-name>,
+
+Thank you for attending One Team Gov Global unconference.
+
+You’ll be receiving an email for each of the sessions you signed in to. This one is for <location>, <session>. 
+
+This email has been sent to all the people who were in the room for that session. 
+
+The notes from the session are here : <session-notes-doc>. The full list of session notes are here : http://j.mp/oneteamgov.
+
+We’d love you to join the One Team Gov Slack at http://oneteamgovernment.slack.com to continue the conversation. Please reply to this email if you have any problems doing that.
+
+Thank you,
+
+The One Team Gov Global committee
